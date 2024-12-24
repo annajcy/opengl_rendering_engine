@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/parallels/Desktop/opengl_rendering_engine/build",
+  "command": "/usr/bin/clang++   -g -std=gnu++17 -o CMakeFiles/OpenGLApp.dir/main.cpp.o -c /home/parallels/Desktop/opengl_rendering_engine/main.cpp",
+  "file": "/home/parallels/Desktop/opengl_rendering_engine/main.cpp"
+}
+]
