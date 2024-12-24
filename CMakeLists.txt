@@ -1,23 +1,35 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(OpenGLApp)
+project(OpenGLProject)
 
-# 设置C++标准
 set(CMAKE_CXX_STANDARD 17)
 
-# 查找OpenGL和GLEW库
 find_package(OpenGL REQUIRED)
-find_package(GLEW REQUIRED)
 
-# 使用pkg-config查找GLFW
+# 使用 pkg-config 查找库
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(GLFW REQUIRED glfw3)
 
-# 设置源文件
+pkg_check_modules(GLFW REQUIRED glfw3)
+pkg_check_modules(GLEW REQUIRED glew)
+
+# 添加源文件
 add_executable(OpenGLApp main.cpp)
 
-# 链接OpenGL、GLEW和GLFW库
-target_link_libraries(OpenGLApp OpenGL::GL GLEW::GLEW ${GLFW_LIBRARIES})
+# 包含目录
+target_include_directories(OpenGLApp PUBLIC
+        ${GLFW_INCLUDE_DIRS}
+        ${GLEW_INCLUDE_DIRS}
+)
 
-# 添加GLFW的头文件路径
-target_include_directories(OpenGLApp PRIVATE ${GLFW_INCLUDE_DIRS})
+# 链接库
+target_link_libraries(OpenGLApp PUBLIC
+        ${GLFW_LIBRARIES}
+        ${GLEW_LIBRARIES}
+        OpenGL::GL
+)
+
+# 链接路径（解决 macOS 上的 rpath 问题）
+target_link_directories(OpenGLApp PUBLIC
+        ${GLFW_LIBRARY_DIRS}
+        ${GLEW_LIBRARY_DIRS}
+)
